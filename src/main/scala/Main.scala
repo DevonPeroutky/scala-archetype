@@ -1,4 +1,8 @@
+import example._
+
 @main def hello: Unit = 
+  codecExample()
+
   println("Hello world!")
   println(msg)
 
