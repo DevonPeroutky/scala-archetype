@@ -1,0 +1,12 @@
+[
+	{
+		"ball_type": "basket",
+		"example": "foo",
+		"created": "1993-08-15 12:00:00"
+	},
+	{
+		"ball_type": "base",
+		"swagger": "bar",
+		"created": "1993-08-15 12:00:00"
+	}
+]
