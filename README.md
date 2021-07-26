@@ -5,7 +5,7 @@ This is a normal sbt project. You can compile code with `sbt compile`, run it wi
 
 
 ### TODO
-- DB & DAO setup 
-- File IO setup
-- HTTP client setup
-
+- File IO Example
+- DB & DAO setup (Slick?)
+- Server setup (Finangle?)
+- HTTP client setup (ScalaJ)
