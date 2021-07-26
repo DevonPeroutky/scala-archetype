@@ -1,9 +1,7 @@
 import example._
 
 @main def hello: Unit = 
-  println(msg)
-  println("------")
-
+  println(s"$msg\n")
   codecExample()
   fileDecodingExample()
 
