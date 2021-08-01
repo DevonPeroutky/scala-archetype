@@ -26,6 +26,14 @@ def codecExample(): Unit = {
 }
 
 /**
+ * Conditional Encoding Example based on field value
+ */
+case class FooBar(funLevel: Int)
+implicit val fooBarDecoder: Decoder[FooBar] = Decoder[FooBar](str => {
+  str.as[String].map(stringVal => if (stringVal.isEmpty) FooBar(0) else FooBar(stringVal.toInt))
+}) 
+
+/**
  * Conditional Encoding Example from JSON file example with custom date decoder
  */
 def fileDecodingExample(): Either[Error, Seq[Ball]] = {
@@ -34,7 +42,6 @@ def fileDecodingExample(): Either[Error, Seq[Ball]] = {
   things
 }
 
-// Custom DateTime Codec
 val dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
 def dateTimeFormatDecoder(format: DateTimeFormatter): Decoder[LocalDateTime] = Decoder[String].emapTry(str => Try(LocalDateTime.parse(str, format)))
 
