@@ -1,6 +1,9 @@
 val scala3Version = "3.0.1"
 val circeVersion = "0.14.1"
 val catsVersion = "2.6.1"
+val finchVersion = "0.32.1"
+val slickVersion = "3.3.0"
+val slickPGVersion = "0.19.7"
 
 lazy val root = project
   .in(file("."))

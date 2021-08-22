@@ -45,7 +45,7 @@ def fileDecodingExample(): Either[Error, Seq[Ball]] = {
 val dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
 def dateTimeFormatDecoder(format: DateTimeFormatter): Decoder[LocalDateTime] = Decoder[String].emapTry(str => Try(LocalDateTime.parse(str, format)))
 
-implicit val localDateTimeDecoder: Decoder[LocalDateTime] = dateTimeFormatDecoder(dateTimeFormat)
+implicit val dateTimeDecoder: Decoder[LocalDateTime] = dateTimeFormatDecoder(dateTimeFormat)
 
 sealed trait Ball
 case class Baseball(ball_type: String, swagger: String, created: LocalDateTime) extends Ball
