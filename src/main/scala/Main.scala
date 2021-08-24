@@ -14,8 +14,6 @@ import bank.Transaction
       Seq.empty[Transaction]
     ,
     events => 
-      println("Events")
-      println(events)
       events
         .flatMap(e => valonBank.process(e))
         .sortBy(txn => (txn.account, txn.time))

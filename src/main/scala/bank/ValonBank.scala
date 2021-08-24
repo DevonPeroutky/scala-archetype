@@ -6,7 +6,7 @@ import java.time.LocalDateTime
 class ValonBank(bankingCore: BankingCore = BankingCore()) {
   private def chargeFee(account: String, time: LocalDateTime) = fundTransaction(account, time, FeeAmount, Fee, fee = Zero).merge
 
-  private def fundTransaction(account: String, time: LocalDateTime, amount: BigDecimal, transactionType: String, fee: BigDecimal = Zero): Either[Seq[Transaction], Seq[Transaction]] = {
+  private def fundTransaction(account: String, time: LocalDateTime, amount: BigDecimal, transactionType: String, fee: BigDecimal = Zero, entity: Option[String] = None): Either[Seq[Transaction], Seq[Transaction]] = {
     val totalAuthorizationAmount = amount.add(fee)
     bankingCore.debit(account, totalAuthorizationAmount, amount) fold (
       err => Left(Seq(Transaction(time, account, Zero, amount, Failure, transactionType, err.balance))),
@@ -40,6 +40,18 @@ class ValonBank(bankingCore: BankingCore = BankingCore()) {
 
   def externalIncomingTransfer(event: BankingEvent): Seq[Transaction] = {
     depositToAccount(event.counterpartyAccount.get, event.amount, event.time, InstantTransfer) ++ chargeFee(event.counterpartyAccount.get, event.time)
+  }
+
+  def initiatieSlowTransfer(event: BankingEvent): Seq[Transaction] = ???
+  def closeSlowTransfer(event: BankingEvent): Seq[Transaction] = {
+    val pendingTransaction: PendingTransaction = bankingCore.closePendingTransaction(event.account, event.entity.get)
+    
+    Seq(Transaction(pendingTransaction.time, account, Zero, amount, Failure, SlowTransfer, pendingTransaction.balanceSnapshot))
+  }
+
+  def cancelSlowTransfer(event: BankingEvent): Seq[Transaction] = {
+    val pendingTransaction: PendingTransaction = bankingCore.closePendingTransaction(event.account, event.entity.get)
+    Seq(Transaction(pendingTransaction.time, account, Zero, amount, Failure, SlowTransfer, pendingTransaction.balanceSnapshot))
   }
 
   def process(event: BankingEvent): Seq[Transaction] = {

@@ -6,7 +6,7 @@ import io.circe._, io.circe.syntax._, io.circe.parser._, io.circe.generic.auto._
 package object bank {
 
   // Data models
-  case class BankingEvent(time: LocalDateTime, account: String, action: String, amount: BigDecimal, counterpartyAccount: Option[String] = None) // TODO, why can't parse Option[String]
+  case class BankingEvent(time: LocalDateTime, account: String, action: String, amount: BigDecimal, counterpartyAccount: Option[String] = None, entity: Option[String] = None)
   case class Transaction(time: LocalDateTime, account: String, credit: BigDecimal, debit: BigDecimal, status: String, `type`: String, balance: BigDecimal) {
     def toStatementRow: String = {
       s"$time, $account, $credit, $debit, $status, ${`type`}, ${balance}"
@@ -28,6 +28,7 @@ package object bank {
   val Success = "Success"
   val Failure = "Failure"
   val InstantTransfer = "INSTANT TRANSFER"
+  val SlowTransfer = "SLOW TRANSFER"
 
   // Type
   val ATM = "ATM"
