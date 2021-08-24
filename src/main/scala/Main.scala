@@ -6,7 +6,9 @@ import bank.Transaction
 @main def hello: Unit =  {
   val valonBank = ValonBank()
 
-  val transactions: Seq[Transaction] = Statement.ingestBankEvents("input-3.json").fold(
+  val step: Int = 4
+
+  val transactions: Seq[Transaction] = Statement.ingestBankEvents(s"input-$step.json").fold(
     err => 
       println(s"Parsing err $err")
       Seq.empty[Transaction]
@@ -19,9 +21,5 @@ import bank.Transaction
         .sortBy(txn => (txn.account, txn.time))
   )
 
-  Statement.exportTransactions("output-3.json", transactions)
+  Statement.exportTransactions(s"output-$step.json", transactions)
 }
-
-
-
-def msg = "I was compiled by Scala 3. :)"

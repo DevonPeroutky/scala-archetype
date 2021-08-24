@@ -4,8 +4,6 @@ import java.math.BigDecimal
 import java.time.LocalDateTime
 
 class ValonBank(bankingCore: BankingCore = BankingCore()) {
-  private val FeeAmount = new BigDecimal("0.01")
-  private val Fee = "Fee"  
   private def chargeFee(account: String, time: LocalDateTime) = fundTransaction(account, time, FeeAmount, Fee, fee = Zero).merge
 
   private def fundTransaction(account: String, time: LocalDateTime, amount: BigDecimal, transactionType: String, fee: BigDecimal = Zero): Either[Seq[Transaction], Seq[Transaction]] = {
@@ -31,8 +29,6 @@ class ValonBank(bankingCore: BankingCore = BankingCore()) {
   def withdraw(event: BankingEvent): Seq[Transaction] = fundTransaction(event.account, event.time, event.amount, ATM).merge
 
   def instantTransfer(event: BankingEvent): Seq[Transaction] = {
-    println("TRANSFERRRING")
-    println(event)
     fundTransaction(event.account, event.time, event.amount, InstantTransfer).fold(identity, txns => 
         txns ++ depositToAccount(event.counterpartyAccount.get, event.amount, event.time, InstantTransfer)
     )
@@ -43,7 +39,7 @@ class ValonBank(bankingCore: BankingCore = BankingCore()) {
   }
 
   def externalIncomingTransfer(event: BankingEvent): Seq[Transaction] = {
-    depositToAccount(event.account, event.amount, event.time, InstantTransfer) ++ chargeFee(event.account, event.time)
+    depositToAccount(event.counterpartyAccount.get, event.amount, event.time, InstantTransfer) ++ chargeFee(event.counterpartyAccount.get, event.time)
   }
 
   def process(event: BankingEvent): Seq[Transaction] = {
