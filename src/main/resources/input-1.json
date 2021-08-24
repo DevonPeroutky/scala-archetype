@@ -1,0 +1,80 @@
+[
+    {
+        "time": "2020-08-01 0:00:00",
+        "account": "PEACH1111",
+        "action": "create account",
+        "amount": ""
+    },
+    {
+        "time": "2020-08-01 1:00:00",
+        "account": "PEACH1111",
+        "action": "deposit",
+        "amount": "$10.00"
+    },
+    {
+        "time": "2020-08-01 2:00:00",
+        "account": "PEACH2222",
+        "action": "create account",
+        "amount": ""
+    },
+    {
+        "time": "2020-08-01 3:00:00",
+        "account": "PEACH1111",
+        "action": "withdraw",
+        "amount": "$5.00"
+    },
+    {
+        "time": "2020-08-01 4:00:00",
+        "account": "PEACH1111",
+        "action": "withdraw",
+        "amount": "$6.00"
+    },
+    {
+        "time": "2020-08-01 5:00:00",
+        "account": "PEACH2222",
+        "action": "deposit",
+        "amount": "$20.00"
+    },
+    {
+        "time": "2020-08-01 6:00:00",
+        "account": "PEACH1111",
+        "action": "deposit",
+        "amount": "$50.00"
+    },
+    {
+        "time": "2020-08-01 7:00:00",
+        "account": "PEACH1111",
+        "action": "deposit",
+        "amount": "$40.00"
+    },
+    {
+        "time": "2020-08-01 8:00:00",
+        "account": "PEACH2222",
+        "action": "withdraw",
+        "amount": "$5.05"
+    },
+    {
+        "time": "2020-08-01 9:00:00",
+        "account": "PEACH2222",
+        "action": "withdraw",
+        "amount": "$15.00"
+    },
+    {
+        "time": "2020-08-01 10:00:00",
+        "account": "PEACH3333",
+        "action": "create account",
+        "amount": ""
+    },
+    {
+        "time": "2020-08-01 11:00:00",
+        "account": "PEACH3333",
+        "action": "deposit",
+        "amount": "$1,000.00"
+    },
+    {
+        "time": "2020-08-01 12:00:00",
+        "account": "PEACH4444",
+        "action": "create account",
+        "amount": ""
+    }
+]
