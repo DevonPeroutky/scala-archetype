@@ -15,7 +15,7 @@ trait BankingError {
 case class InsufficientFunds(account: String, balance: BigDecimal, txnAmount: BigDecimal) extends BankingError
 
 class BankingCore {
-  private val accountBalances = mutable.Map.empty[String, AccountBalance]
+  val accountBalances = mutable.Map.empty[String, AccountBalance]
   private def getBalance(account: String) = accountBalances(account)
   private def updateBalance(account: String, amount: BigDecimal) = {
     val existingBalance: AccountBalance = getBalance(account)
@@ -31,13 +31,13 @@ class BankingCore {
     accountBalances += (account -> newAccount)
     newAccount
   }
-  def debit(account: String, amount: BigDecimal): Either[BankingError, AccountBalance] = {
+  def debit(account: String, authorizationAmount: BigDecimal, txnAmount: BigDecimal): Either[BankingError, AccountBalance] = {
     val accountBalance = getBalance(account)
 
-    if (accountBalance.getBalance().compareTo(amount) < 0) {
-      Left(InsufficientFunds(account, accountBalance.getBalance(), amount))
+    if (accountBalance.getBalance().compareTo(authorizationAmount) < 0) {
+      Left(InsufficientFunds(account, accountBalance.getBalance(), authorizationAmount))
     } else {
-      Right(updateBalance(account, amount.negate))
+      Right(updateBalance(account, txnAmount.negate))
     }
   }
   def credit(account: String, amount: BigDecimal): AccountBalance = updateBalance(account, amount)

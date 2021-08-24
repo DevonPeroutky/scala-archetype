@@ -6,19 +6,20 @@ import bank.Transaction
 @main def hello: Unit =  {
   val valonBank = ValonBank()
 
-  val transactions: Seq[Transaction] = Statement.ingestBankEvents("input-1.json").fold(
+  val transactions: Seq[Transaction] = Statement.ingestBankEvents("input-3.json").fold(
     err => 
       println(s"Parsing err $err")
       Seq.empty[Transaction]
     ,
-    txns => 
-      txns
-        .flatMap(valonBank.process)
+    events => 
+      println("Events")
+      println(events)
+      events
+        .flatMap(e => valonBank.process(e))
         .sortBy(txn => (txn.account, txn.time))
   )
 
-  Statement.exportTransactions("output-1.json", transactions)
-
+  Statement.exportTransactions("output-3.json", transactions)
 }
 
 
